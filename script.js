@@ -3,7 +3,6 @@ let board = document.getElementById("board");
 let boardCells = {};
 
 // Game Variables
-// let snakeStart = [[15, 18], [15, 17], [15,16], [15, 15], [15, 14], [15, 13], [15, 12]];
 let snakeStart = [[15, 15]];
 let snake = JSON.parse(JSON.stringify(snakeStart));
 let direction = 'right';
@@ -19,22 +18,19 @@ let cellHeight = board.clientHeight / numOfRows;
 let cellWidth = board.clientWidth / numOfCols;
 let cellMargin = 0.5;
 
-// Colorsww
+// Colors
 let snakeColor = 'black';
 let backgroundColor = 'white';
 let snakeHeadColor = 'red';
 let foodColor = 'green';
-
 
 (function () {
     createBoard();
     reset();
 })();
 
-
 // Game Logic
 function normalMode(event) {
-    // console.log(event);
     if (event.code === 'KeyA') {
         if (!isInvalidMove(getNewCell('left')))
             direction = 'left';
@@ -55,7 +51,6 @@ function normalMode(event) {
     }
 }
 
-
 function paused(event) {
     if (event.code === 'Space') {
         if (state === 'paused') {
@@ -64,7 +59,6 @@ function paused(event) {
         }
     }
 }
-
 
 function createBoard() {
     for (let i = 0; i < numOfRows; i++) {
@@ -96,7 +90,6 @@ function move() {
         turnOffCell(snake.pop());
 }
 
-
 function renderSnake() {
     let head = snake[0];
     boardCells[head[0]][head[1]].style.backgroundColor = snakeHeadColor;
@@ -104,7 +97,6 @@ function renderSnake() {
     for (let i = 1; i < snake.length; i++)
         turnOnCell(snake[i]);
 }
-
 
 function reset() {
     resetBoard();
@@ -117,12 +109,10 @@ function reset() {
     play();
 }
 
-
 function finishGame() {
     alert(`Your Score: ${score}!`,);
     reset();
 }
-
 
 function generateFood() {
     let x = getRandomNumber(numOfRows - 1, 0),
@@ -134,7 +124,6 @@ function generateFood() {
     }
     colorFoodCell(foodCell);
 }
-
 
 function pause() {
     console.log('Paused');
@@ -148,7 +137,6 @@ function play() {
 }
 
 // Helper Functions
-
 function turnOnCell(cell) {
     let x = cell[0], y = cell[1];
     if (isCellValid(cell))
@@ -177,7 +165,6 @@ function isInvalidMove(cell) {
     return false;
 }
 
-
 function resetBoard() {
     for (let i = 0; i < numOfRows; i++) {
         for (let j = 0; j < numOfCols; j++) {
@@ -185,7 +172,6 @@ function resetBoard() {
         }
     }
 }
-
 
 function getNewCell(direction) {
     let newCell = [-1, -1];
@@ -201,14 +187,12 @@ function getNewCell(direction) {
     return newCell;
 }
 
-
 function createDivWithFlex(flexDirection) {
     let flex = document.createElement('DIV');
     flex.style.display = 'flex';
     flex.style.flexDirection = flexDirection;
     return flex;
 }
-
 
 function createDiv(width, height) {
     let div = document.createElement('DIV');
@@ -222,12 +206,10 @@ function getRandomNumber(max, min) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-
 function colorFoodCell(cell) {
     let x = cell[0], y = cell[1];
     boardCells[x][y].style.backgroundColor = foodColor;
 }
-
 
 function updateSpeed(delta) {
     if (snakeSpeed + delta >= 50)
